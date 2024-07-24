@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_rejection_wizard_form" model="ir.ui.view">
+        <field name="name">rejection.wizard.form</field>
+        <field name="model">rejection.wizard</field>
+        <field name="arch" type="xml">
+            <form string="purchase">
+                <sheet>
+                    <group>
+                        <field name="rejection_reason"/>
+                    </group>
+                    <footer>
+                         <button name="discard" string="Cancel" type="object" special="cancel"/>
+                        <button name="action_confirm" string="Confirm" type="object"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rejection_wizard_form" model="ir.actions.act_window">
+        <field name="name">Rejection wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">rejection.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <!--    &lt;!&ndash; Menuitem &ndash;&gt;-->
+    <!--    <menuitem id="main_patient"-->
+    <!--              parent="main_hospital_operations"-->
+    <!--              name="Patients"-->
+    <!--              action="view_patient_form"-->
+    <!--              sequence="10"/>-->
+</odoo>

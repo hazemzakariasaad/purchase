@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_purchase_request_form" model="ir.ui.view">
+        <field name="name">purchase.request.form</field>
+        <field name="model">purchase.request</field>
+        <field name="arch" type="xml">
+            <form string="purchase">
+                <header>
+                    <button name="action_submit_for_approval" string="Submit for Approval" type="object" invisible="status!='draft'"/>
+                    <button name="action_approve" string="Approve" type="object" invisible="status!='to_approve'"/>
+                    <button name="%(purchase_enhancement.action_rejection_wizard_form)d" string="Reject" type="action" invisible="status!='to_approve'"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="status!='draft'"/>
+                    <button name="action_reset_to_draft" string="Reset to Draft" type="object" invisible="status!='cancelled'"/>
+                    <field name="status" widget="statusbar" options="{'clickable':0}" statusbar_visible="draft,to_approve,approved,rejected,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="status!='draft'"/>
+                        <field name="age" readonly="status!='draft'"/>
+                        <field name="requested_by" readonly="status!='draft'"/>
+                        <field name="Start_date" readonly="status!='draft'"/>
+                        <field name="End_date" readonly="status!='draft'"/>
+                        <field name="rejection_reason" invisible="status!='rejected'" readonly="status!='draft'"/>
+                        <field name="orderlines">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="description"/>
+                                <field name="quantity"/>
+                                <field name="cost_price"/>
+                                <field name="total"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!--    &lt;!&ndash; Action &ndash;&gt;-->
+    <record id="action_purchase_request_form" model="ir.actions.act_window">
+        <field name="name">Purchase Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.request</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem id="menu_purchase_request"
+              parent="purchase.menu_procurement_management"
+              name="purchase request"
+              action="action_purchase_request_form"
+              sequence="25"/>
+
+    <!--    &lt;!&ndash; Menuitem &ndash;&gt;-->
+    <!--    <menuitem id="main_patient"-->
+    <!--              parent="main_hospital_operations"-->
+    <!--              name="Patients"-->
+    <!--              action="view_patient_form"-->
+    <!--              sequence="10"/>-->
+</odoo>
